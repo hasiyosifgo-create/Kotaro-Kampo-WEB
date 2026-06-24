@@ -1,4 +1,4 @@
-const { schedule } = require('@netlify/functions');
+﻿const { schedule } = require('@netlify/functions');
 const cheerio = require('cheerio');
 const { getStore } = require('@netlify/blobs');
 
@@ -79,7 +79,7 @@ const handler = async function(event, context) {
         const [med, otc] = await Promise.all([CA(), OA()]);
         const F = [...med, ...otc].sort((a,b) => a.sortKey.localeCompare(b.sortKey, "ja"));
         
-        const store = getStore("kotaro-data");
+        const store = getStore({ name: "kotaro-data", siteID: process.env.SITE_ID, token: process.env.NETLIFY_API_TOKEN });
         const existingDataStr = await store.get("medicines");
         let added = [];
         let deleted = [];
@@ -104,3 +104,4 @@ const handler = async function(event, context) {
 };
 
 module.exports.handler = schedule("@daily", handler);
+
