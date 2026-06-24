@@ -1,0 +1,13 @@
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/kegg-proxy/*"
+  to = "https://www.kegg.jp/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
